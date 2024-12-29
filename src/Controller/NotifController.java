@@ -4,15 +4,16 @@
  */
 package Controller;
 
-import Model.Person;
+import Model.Notifikasi;
+import java.util.List;
 
 /**
  *
  * @author armed
  */
-public interface PenggunaController {
+public interface NotifController {
 
-    void register(Person person);
+    void addKomentar(Notifikasi notif);
 
-    String login(String username, String password);
+    List<Notifikasi> showKomentar(String username);
 }

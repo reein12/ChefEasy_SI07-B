@@ -8,11 +8,15 @@ package Model;
  *
  * @author armed
  */
-public class ResepNasional extends Resep{
-     private String asalDaerah;
+public class ResepNasional extends Resep {
 
-    public ResepNasional(String idResep, String nama, String ketegori, String bahan, String langkah, String penulis, String asalDaerah) {
-        super(idResep, nama, "nasional", bahan, langkah, penulis);
+    private String asalDaerah;
+
+    public ResepNasional(String nama, String ketegori, String bahan, String langkah, String penulis, String asalDaerah) throws ValidasiInputException {
+        super(nama, ketegori, bahan, langkah, penulis);
+        if (asalDaerah == null || asalDaerah.isEmpty()) {
+            throw new ValidasiInputException("asalDaerah tidak boleh kosong!");
+        }
         this.asalDaerah = asalDaerah;
     }
 

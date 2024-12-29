@@ -12,28 +12,46 @@ import java.util.Date;
  */
 public class Resep {
 
-    private String idResep;
-    private String nama, ketegori, bahan, langkah, penulis;
+    private int idResep;
+    private String gambar;
+    private String nama, kategori, bahan, langkah, penulis;
 
-    public Resep(String idResep, String nama, String ketegori, String bahan, String langkah, String penulis) {
+    public Resep(String nama, String kategori, String bahan, String langkah, String penulis) throws ValidasiInputException {
+
+        if (nama == null || nama.isEmpty()) {
+            throw new ValidasiInputException("nama tidak boleh kosong!");
+        }
+        if (bahan == null || bahan.isEmpty()) {
+            throw new ValidasiInputException("bahan tidak boleh kosong!");
+        }
+        if (langkah == null || langkah.isEmpty()) {
+            throw new ValidasiInputException("langkah tidak boleh kosong!");
+        }
+        if (penulis == null || penulis.isEmpty()) {
+            throw new ValidasiInputException("penulis tidak boleh kosong!");
+        }
         this.idResep = idResep;
         this.nama = nama;
-        this.ketegori = ketegori;
+        this.kategori = kategori;
         this.bahan = bahan;
         this.langkah = langkah;
         this.penulis = penulis;
     }
 
-    public String getIdResep() {
+    public int getIdResep() {
         return idResep;
+    }
+
+    public void setIdResep(int id) {
+        this.idResep = id;
     }
 
     public String getNama() {
         return nama;
     }
 
-    public String getKetegori() {
-        return ketegori;
+    public String getKategori() {
+        return kategori;
     }
 
     public String getBahan() {
@@ -46,5 +64,13 @@ public class Resep {
 
     public String getPenulis() {
         return penulis;
+    }
+
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 }

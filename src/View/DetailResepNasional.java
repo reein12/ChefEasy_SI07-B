@@ -4,17 +4,41 @@
  */
 package View;
 
+import Database.FavoritDB;
+import Database.NotifDB;
+import Database.ResepDB;
+import Model.Notifikasi;
+import Model.Resep;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author armed
  */
 public class DetailResepNasional extends javax.swing.JFrame {
 
+    private int idResep;
+    private String username;
+
     /**
      * Creates new form DetailResepNasional
      */
-    public DetailResepNasional() {
+    public DetailResepNasional(int id, String username) {
         initComponents();
+        this.idResep = id;
+        this.username = username;
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        loadData(id);
+    }
+
+    public DetailResepNasional() {
     }
 
     /**
@@ -33,25 +57,15 @@ public class DetailResepNasional extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        lblLangkah = new javax.swing.JLabel();
+        lblBahan = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel21 = new javax.swing.JLabel();
+        lblNama = new javax.swing.JLabel();
+        lblPenulis = new javax.swing.JLabel();
+        btnFavorit = new javax.swing.JButton();
+        btnKomen = new javax.swing.JButton();
+        lblGambar = new javax.swing.JLabel();
 
         jButton6.setText("Gambar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -77,30 +91,14 @@ public class DetailResepNasional extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Bahan");
 
-        jLabel6.setText("1. Tepung terigu");
-
-        jLabel7.setText("2. Buah pisang");
-
-        jLabel9.setText("3.Sejumput garam");
-
-        jLabel11.setText("4. 100 ml air");
-
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("Langkah-langkah");
 
-        jLabel13.setText("1. Campurkan tepung terigu, gula, garam, dan vanili.");
+        lblLangkah.setText("Langkah");
+        lblLangkah.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jLabel14.setText("2. Panaskan minyak dalam wajan dengan api sedang.");
-
-        jLabel15.setText("3. Masukkan potongan pisang ke dalam adonan tepung.");
-
-        jLabel16.setText("4. Masukkan pisang ke dalam minyak panas.");
-
-        jLabel17.setText("5. Goreng hingga warnanya kuning keemasan.");
-
-        jLabel18.setText("6. Angkat pisang goreng dan tiriskan.");
-
-        jLabel19.setText("7. Sajikan");
+        lblBahan.setText("tes");
+        lblBahan.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -109,19 +107,10 @@ public class DetailResepNasional extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBahan, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblLangkah, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -130,52 +119,34 @@ public class DetailResepNasional extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblBahan, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel19)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addComponent(lblLangkah, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(180, 188, 172));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Sitka Text", 0, 14)); // NOI18N
-        jLabel1.setText("Pisang Goreng");
+        lblNama.setFont(new java.awt.Font("Sitka Text", 0, 14)); // NOI18N
+        lblNama.setText("Pisang Goreng");
 
-        jLabel2.setText("15 Menit");
+        lblPenulis.setText("penulis");
 
-        jLabel3.setText("4 Bahan");
-
-        jButton1.setText("+ Favorit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnFavorit.setBackground(new java.awt.Color(180, 188, 172));
+        btnFavorit.setText("+ Favorit");
+        btnFavorit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnFavoritActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Komentar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnKomen.setBackground(new java.awt.Color(180, 188, 172));
+        btnKomen.setText("Komentar");
+        btnKomen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnKomenActionPerformed(evt);
             }
         });
 
@@ -184,19 +155,14 @@ public class DetailResepNasional extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNama)
+                .addGap(18, 18, 18)
+                .addComponent(lblPenulis)
+                .addGap(86, 86, 86)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)))
+                    .addComponent(btnFavorit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnKomen, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -206,18 +172,17 @@ public class DetailResepNasional extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)))
+                            .addComponent(lblNama, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPenulis)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFavorit, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnKomen, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/Folder/pisang grg.jpeg"))); // NOI18N
+        lblGambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/Folder/pisang grg.jpeg"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -236,7 +201,7 @@ public class DetailResepNasional extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(110, 110, 110)
-                .addComponent(jLabel21)
+                .addComponent(lblGambar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -245,7 +210,7 @@ public class DetailResepNasional extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addGap(17, 17, 17)
-                .addComponent(jLabel21)
+                .addComponent(lblGambar)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -275,13 +240,73 @@ public class DetailResepNasional extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnFavoritActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoritActionPerformed
+        FavoritDB favDB = new FavoritDB();
+        favDB.tambahFavorit(idResep, username);
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        // Memberikan umpan balik kepada pengguna, misalnya dengan menampilkan pesan
+        JOptionPane.showMessageDialog(this, "Resep berhasil ditambahkan ke favorit!");
+        NotifDB notiDB = new NotifDB();
+        Notifikasi notif = new Notifikasi("Resep " + lblNama.getText() + " berhasil ditambahkan!", username);
+        notiDB.addKomentar(notif);
+    }//GEN-LAST:event_btnFavoritActionPerformed
+
+    private void btnKomenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKomenActionPerformed
+        new KomentarFrame(idResep, username).setVisible(true);
+    }//GEN-LAST:event_btnKomenActionPerformed
+
+    private void loadData(int id) {
+        ResepDB resepDB = new ResepDB();
+
+        List<Resep> resepList = resepDB.showDataById(id);
+
+        Resep resep = resepList.get(0);
+        lblNama.setText(resep.getNama());
+        lblPenulis.setText(resep.getPenulis());
+        lblBahan.setText(resep.getBahan());
+        lblLangkah.setText(resep.getLangkah());
+        tampilGambar(resep.getGambar(), lblGambar);
+    }
+
+    private void tampilGambar(String path, JLabel lblGambar) {
+        File file = new File(path);
+
+        // Validasi apakah file ada
+        if (!file.exists()) {
+            lblGambar.setIcon(null);
+            lblGambar.setText("Gambar tidak ditemukan");
+            return;
+        }
+
+        try {
+            // Membaca file gambar dari path
+            byte[] img = Files.readAllBytes(file.toPath());
+            ImageIcon imageIcon = new ImageIcon(img);
+
+            // Dimensi label
+            int labelWidth = 117;
+            int labelHeight = 89;
+
+            // Menghitung skala gambar agar sesuai dengan label
+            int imageWidth = imageIcon.getIconWidth();
+            int imageHeight = imageIcon.getIconHeight();
+
+            double scaleX = (double) labelWidth / (double) imageWidth;
+            double scaleY = (double) labelHeight / (double) imageHeight;
+            double scale = Math.min(scaleX, scaleY);
+
+            // Melakukan scaling pada gambar
+            Image scaledImage = imageIcon.getImage().getScaledInstance((int) (scale * imageWidth), (int) (scale * imageHeight), Image.SCALE_SMOOTH);
+
+            // Menampilkan gambar ke label
+            lblGambar.setIcon(new ImageIcon(scaledImage));
+            lblGambar.setText(""); // Hapus teks jika gambar berhasil ditampilkan
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            lblGambar.setIcon(null);
+            lblGambar.setText("Gagal memuat gambar");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -319,31 +344,21 @@ public class DetailResepNasional extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnFavorit;
+    private javax.swing.JButton btnKomen;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblBahan;
+    private javax.swing.JLabel lblGambar;
+    private javax.swing.JLabel lblLangkah;
+    private javax.swing.JLabel lblNama;
+    private javax.swing.JLabel lblPenulis;
     // End of variables declaration//GEN-END:variables
 }

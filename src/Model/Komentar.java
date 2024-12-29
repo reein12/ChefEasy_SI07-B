@@ -10,18 +10,19 @@ package Model;
  */
 public class Komentar {
 
-    private String idKomentar;
-    private String Isi, Penulis, Resep;
+    private String Isi, Penulis;
+    private int idResep;
 
-    public Komentar(String idKomentar, String Isi, String Penulis, String Resep) {
-        this.idKomentar = idKomentar;
+    public Komentar(String Isi, String Penulis) throws ValidasiInputException {
+        if (Isi == null || Isi.isEmpty()) {
+            throw new ValidasiInputException("Isi tidak boleh kosong!");
+        }
+        if (Penulis == null || Penulis.isEmpty()) {
+            throw new ValidasiInputException("Penulis tidak boleh kosong!");
+        }
+
         this.Isi = Isi;
         this.Penulis = Penulis;
-        this.Resep = Resep;
-    }
-
-    public String getIdKomentar() {
-        return idKomentar;
     }
 
     public String getIsi() {
@@ -32,7 +33,11 @@ public class Komentar {
         return Penulis;
     }
 
-    public String getResep() {
-        return Resep;
+    public int getIdResep() {
+        return idResep;
+    }
+
+    public void setIdResep(int idResep) {
+        this.idResep = idResep;
     }
 }

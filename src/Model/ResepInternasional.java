@@ -12,8 +12,11 @@ public class ResepInternasional extends Resep {
 
     private String negaraAsal;
 
-    public ResepInternasional(String idResep, String nama, String ketegori, String bahan, String langkah, String penulis, String negaraAsal) {
-        super(idResep, nama, "internasional", bahan, langkah, penulis);
+    public ResepInternasional(String nama, String ketegori, String bahan, String langkah, String penulis, String negaraAsal) throws ValidasiInputException {
+        super(nama, ketegori, bahan, langkah, penulis);
+        if (negaraAsal == null || negaraAsal.isEmpty()) {
+            throw new ValidasiInputException("negaraAsal tidak boleh kosong!");
+        }
         this.negaraAsal = negaraAsal;
     }
 

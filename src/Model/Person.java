@@ -11,6 +11,8 @@ package Model;
 public class Person {
 
     private String username;
+    private String nama;
+    private String noHP;
     private String password;
     private String hakAkses;
 
@@ -35,6 +37,22 @@ public class Person {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public String getNoHp() {
+        return noHP;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public void setNoHP(String noHP) {
+        this.noHP = noHP;
     }
 
     public String getHakAkses() {

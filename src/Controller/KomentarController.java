@@ -4,15 +4,17 @@
  */
 package Controller;
 
-import Model.Person;
+import Model.Komentar;
+import java.util.List;
 
 /**
  *
  * @author armed
  */
-public interface PenggunaController {
+public interface KomentarController {
 
-    void register(Person person);
+    void addKomentar(int resepId, Komentar komentar);
 
-    String login(String username, String password);
+    List<Komentar> showKomentar(int resepId);
+
 }
